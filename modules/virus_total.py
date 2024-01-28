@@ -215,7 +215,7 @@ class VirusTotal:
             try:
                 whois = self.parse_main_whois_vt_info(response['data']['attributes']['whois'], whois_main_fields)
             except Exception as e:
-                print('VirusTotal Whois info parse error')
+                print(f'VirusTotal Whois info parse error. Error description: {e}')
                 print(e)
                 whois = {}
             if ioc_type == 'Domain':

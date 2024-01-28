@@ -61,8 +61,8 @@ class Whois:
             result = [ip, Whois.get_reverse_nslookup_info(ip) ,country, asn_description, asn_cidr, created, last_changed]
         
         # In case if request with IPWhois fails try whois
-        except:
-            print(f'Error occured during request to whois for {ip}')
+        except Exception as e:
+            print(f'Error occured during request to whois for {ip}. Error description: {e}')
             print(f'Retry to get information from whois for {ip}...')
             try:
                 full_info = whois.whois(ip)
@@ -96,8 +96,8 @@ class Whois:
             else:
                 full_info = whois.whois(domain)
                 result = [domain, full_info.country, full_info.registrar, None, full_info.creation_date, full_info.updated_date]
-        except Exception:
-            print(f'Error occured during request to whois for {domain}')
+        except Exception as e:
+            print(f'Error occured during request to whois for {domain}. Error description: {e}')
             result = [domain,None,None,None,None,None,None]
     
         return result

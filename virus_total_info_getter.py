@@ -20,6 +20,8 @@ parser.add_argument('-ds', '--dont_show', help="Don't show result's in the termi
 parser.add_argument('-p', '--premium', help="Option for premium Virus Total subscription owners which reduces delay between requests", action='store_true')
 parser.add_argument('-sk', '--save_key', help="Save key in script to avoid -k option in future. Saves Virus Total API key passed after -k option", action='store_true')
 parser.add_argument('-d', '--debug', help="Debug mode. Errors are shown as stacktrace", action='store_true')
+# Filters
+parser.add_argument('-sm', '--suspisious_or_malicious', help="Create report only for suspicious and malicious IOC's", action='store_true')
 
 # Parse arguments
 args = parser.parse_args()
@@ -139,13 +141,27 @@ def main():
         
     # Save to file
     if args.out_file_path:
-        try:
-            result_file_path = args.out_file_path
-            work_with_file.WorkWithFile.write_to_csv(result_file_path,result,column_names)
-            print(f'Results were saved to file {result_file_path}')
-        except:
-            print(f'Results were not saved to {result_file_path}. File is opened in other application or can not be created or overwritten')
-    
+        if args.suspisious_or_malicious:
+            result = [inner_list for inner_list in result if inner_list[2] in ['Suspicious','Malicious']]
+            if len(result) == 0:
+                print("Report does not contain any suspisious or malicious IOC's")
+                return 0
+        
+        while (True):
+            try:
+                result_file_path = args.out_file_path
+                work_with_file.WorkWithFile.write_to_csv(result_file_path, result, column_names)
+                print(f'Results were saved to file {result_file_path}')
+                break
+            # TODO test this piece of code
+            except Exception as e:
+                print(f'An error occurred: {e}')
+                print(f'Results were not saved to {result_file_path}. Press Y to try again, any key to skip saving to file')
+                answer = input().lower()
+                if answer == 'y':
+                    continue
+                else:
+                    break
     return 0
 
 if __name__=='__main__':
