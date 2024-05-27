@@ -1,3 +1,0 @@
-* Add hash report
-* Update requirements.txt
-* Unit tests
