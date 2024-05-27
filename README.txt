@@ -20,7 +20,9 @@ python.exe .\get_ip_domain_info.py --src .\src.csv -o res.csv
 
 Key is saved to the file key.txt in script folder
 
-Options:
+usage: virus_total_info_getter.py [-h] -src SRC_FILE_PATH [-o OUT_FILE_PATH] [-k VT_API_KEY] [-vt] [-w] [-ds] [-p] [-sk] [-d] [-sm]
+
+options:
   -h, --help            show this help message and exit
   -src SRC_FILE_PATH, --src_file_path SRC_FILE_PATH
                         Source file path (Required)
@@ -33,3 +35,12 @@ Options:
   -ds, --dont_show      Don't show result's in the terminal
   -p, --premium         Option for premium Virus Total subscription owners which reduces delay between requests
   -sk, --save_key       Save key in script to avoid -k option in future. Saves Virus Total API key passed after -k option
+  -d, --debug           Debug mode. Errors are shown as stacktrace
+  -sm, --suspisious_or_malicious
+                        Create report only for suspicious and malicious IOC's
+
+VirusTotal API key guide: https://virustotal.readme.io/docs/please-give-me-an-api-key
+
+Example:
+
+python3 virus_total_info_getter.py -src test_data.txt -o res.csv -d -sk -p -k <your_VT_key>
