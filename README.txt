@@ -1,3 +1,5 @@
+Vladyslav Ostapchuk s18423
+
 This script is created to obtain Virus Total scan result and Whois information for list of IP or Domains.
 
 Before run script. Use pip3 install -r requirements.txt command to install all dependencies. You can find file requirements.txt in folder containing script and it's modules.
