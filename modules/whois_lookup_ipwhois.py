@@ -42,7 +42,7 @@ class Whois:
     def ns_lookup(ip_domain: str):
         if validation.Validation.validate_domain(ip_domain):
             return Whois.get_nslookup_info(ip_domain)
-        elif validation.Validation.validate_ip():
+        elif validation.Validation.validate_ip(ip_domain):
             return Whois.get_reverse_nslookup_info(ip_domain)
         
         return None
